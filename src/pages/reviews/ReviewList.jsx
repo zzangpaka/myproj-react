@@ -2,11 +2,13 @@ import Axios from 'axios';
 import DebugStates from 'components/DebugStates';
 import { useEffect, useState } from 'react';
 import Review from 'components/Review';
+import { useNavigate } from 'react-router-dom';
 
 function PageReviewList() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [reviewList, setReviewList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     refetch();
@@ -31,6 +33,32 @@ function PageReviewList() {
       });
   };
 
+  const deleteReview = (deletingReview) => {
+    const { id: deletingReviewId } = deletingReview;
+    const url = `http://127.0.0.1:8000/shop/api/reviews/${deletingReviewId}/`;
+
+    setLoading(true);
+    setError(null);
+
+    Axios.delete(url)
+      .then(() => {
+        console.log('삭제 성공');
+        // 선택지 #1) 삭제된 항목만 상탯값에서 제거
+        setReviewList((prevReviewList) => {
+          return prevReviewList.filter((review) => {
+            return review.id !== deletingReviewId;
+          });
+        });
+        // 선택지 #2) 전체를 새로고침
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div>
       <h2>Review List</h2>
@@ -40,14 +68,25 @@ function PageReviewList() {
 
       <button
         onClick={() => refetch()}
-        className="bg-yellow-400 hover:bg-yellow-200"
+        className="bg-yellow-400 hover:bg-yellow-200 mr-1"
       >
         새로고침
       </button>
 
+      <button
+        onClick={() => navigate('/reviews/new/')}
+        className="bg-blue-400 hover:bg-slate-400"
+      >
+        새 리뷰
+      </button>
+
       <div className="">
         {reviewList.map((review) => (
-          <Review review={review} key={review.id} />
+          <Review
+            review={review}
+            key={review.id}
+            handleDelete={() => deleteReview(review)}
+          />
         ))}
       </div>
 

@@ -33,6 +33,10 @@ function PageReviewList() {
       });
   };
 
+  const willeditReview = (editingReview) => {
+    console.log('Editing', editingReview);
+  };
+
   const deleteReview = (deletingReview) => {
     const { id: deletingReviewId } = deletingReview;
     const url = `http://127.0.0.1:8000/shop/api/reviews/${deletingReviewId}/`;
@@ -68,14 +72,14 @@ function PageReviewList() {
 
       <button
         onClick={() => refetch()}
-        className="bg-yellow-400 hover:bg-yellow-200 mr-1"
+        className="text-pink-500 hover:text-pink-300 mr-1"
       >
         새로고침
       </button>
 
       <button
         onClick={() => navigate('/reviews/new/')}
-        className="bg-blue-400 hover:bg-slate-400"
+        className="text-pink-500 hover:text-pink-300"
       >
         새 리뷰
       </button>
@@ -85,6 +89,7 @@ function PageReviewList() {
           <Review
             review={review}
             key={review.id}
+            handleEdit={() => willeditReview(review)}
             handleDelete={() => deleteReview(review)}
           />
         ))}

@@ -1,6 +1,8 @@
 import Rating from './Rating';
+import { useNavigate } from 'react-router-dom';
 
 function Review({ review, handleEdit, handleDelete }) {
+  const navigate = useNavigate();
   const { content, score } = review;
 
   // TODO: handleEdit/handleDelete 호출에 대한 방어적 코드를 작성해주세요
@@ -9,7 +11,7 @@ function Review({ review, handleEdit, handleDelete }) {
     <div className="bg-yellow-100 border border-yellow-400 my-1 p-1">
       <div>
         <span
-          onClick={() => handleEdit()}
+          onClick={() => handleEdit(() => navigate(`/reviews/${review.id}/`))}
           className="hover:text-blue-400 cursor-pointer mr-1"
         >
           수정

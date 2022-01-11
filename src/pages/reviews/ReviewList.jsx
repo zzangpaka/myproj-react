@@ -34,10 +34,6 @@ function PageReviewList() {
       });
   };
 
-  const willeditReview = (editingReview) => {
-    console.log('Editing', editingReview);
-  };
-
   const deleteReview = (deletingReview) => {
     const { id: deletingReviewId } = deletingReview;
     const url = `/shop/api/reviews/${deletingReviewId}/`;
@@ -49,13 +45,12 @@ function PageReviewList() {
       .delete(url)
       .then(() => {
         console.log('삭제 성공');
-        // 선택지 #1) 삭제된 항목만 상탯값에서 제거
+        // 삭제된 항목만 상탯값에서 제거
         setReviewList((prevReviewList) => {
           return prevReviewList.filter((review) => {
             return review.id !== deletingReviewId;
           });
         });
-        // 선택지 #2) 전체를 새로고침
       })
       .catch((error) => {
         setError(error);
@@ -91,7 +86,7 @@ function PageReviewList() {
           <Review
             review={review}
             key={review.id}
-            handleEdit={() => willeditReview(review)}
+            handleEdit={() => navigate(`/reviews/${review.id}/edit`)}
             handleDelete={() => deleteReview(review)}
           />
         ))}

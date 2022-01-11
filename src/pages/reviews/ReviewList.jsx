@@ -1,8 +1,8 @@
-import Axios from 'axios';
 import DebugStates from 'components/DebugStates';
 import { useEffect, useState } from 'react';
 import Review from 'components/Review';
 import { useNavigate } from 'react-router-dom';
+import { axiosInstance } from 'api/base';
 
 function PageReviewList() {
   const [loading, setLoading] = useState(false);
@@ -18,9 +18,10 @@ function PageReviewList() {
     setLoading(true);
     setError(null);
 
-    const url = 'http://127.0.0.1:8000/shop/api/reviews/';
+    const url = `/shop/api/reviews/`;
     // Promise 객체
-    Axios.get(url)
+    axiosInstance
+      .get(url)
       .then(({ data }) => {
         setReviewList(data);
       })
@@ -39,21 +40,21 @@ function PageReviewList() {
 
   const deleteReview = (deletingReview) => {
     const { id: deletingReviewId } = deletingReview;
-    const url = `http://127.0.0.1:8000/shop/api/reviews/${deletingReviewId}/`;
+    const url = `/shop/api/reviews/${deletingReviewId}/`;
 
     setLoading(true);
     setError(null);
 
-    Axios.delete(url)
+    axiosInstance
+      .delete(url)
       .then(() => {
         console.log('삭제 성공');
-        // 선택지 #1) 삭제된 항목만 상탯값에서 제거
+        // 삭제된 항목만 상탯값에서 제거
         setReviewList((prevReviewList) => {
           return prevReviewList.filter((review) => {
             return review.id !== deletingReviewId;
           });
         });
-        // 선택지 #2) 전체를 새로고침
       })
       .catch((error) => {
         setError(error);
@@ -89,7 +90,11 @@ function PageReviewList() {
           <Review
             review={review}
             key={review.id}
+<<<<<<< HEAD
             handleEdit={() => willeditReview(review)}
+=======
+            handleEdit={() => navigate(`/reviews/${review.id}/edit`)}
+>>>>>>> 52bda5efa9943f05f65f8b9c29a8e286bec03a5f
             handleDelete={() => deleteReview(review)}
           />
         ))}

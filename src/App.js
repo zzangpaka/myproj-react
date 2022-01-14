@@ -2,21 +2,27 @@ import TopNav from 'components/TopNav';
 import Login from 'pages/accounts/Login';
 import Profile from 'pages/accounts/Profile';
 import PageBlog from 'pages/blog/PageBlog';
-import Clock from 'pages/examples/Clock';
-import Components from 'pages/examples/Components';
-import ContextApiSample from 'pages/examples/ContextApiSample';
-import ContextApiSample2 from 'pages/examples/ContextApiSample2';
-import CssInJs from 'pages/examples/CssInJs';
-import CssModule from 'pages/examples/CssModule';
-import useWindowWidth from 'pages/examples/useWindowWidth';
-import ReviewForm from 'pages/reviews/ReviewForm';
-import ReviewList from 'pages/reviews/ReviewList';
+import PageMascotCharacterDetail from 'pages/mascot/PageMascotCharacterDetail';
+import PageMascotCharacterForm from 'pages/mascot/PageMascotCharacterForm';
+// import Clock from 'pages/examples/Clock';
+// import Components from 'pages/examples/Components';
+// import ContextApiSample from 'pages/examples/ContextApiSample';
+// import ContextApiSample2 from 'pages/examples/ContextApiSample2';
+// import CssInJs from 'pages/examples/CssInJs';
+// import CssModule from 'pages/examples/CssModule';
+// import useWindowWidth from 'pages/examples/useWindowWidth';
+import PagemascotIndex from 'pages/mascot/PageMascotIndex';
+import PageNewsArticleDetail from 'pages/news/PageNewsArticleDetail';
+import PageNewsArticleForm from 'pages/news/PageNewsArticleForm';
+import PageNewsIndex from 'pages/news/PageNewsIndex';
+// import ReviewForm from 'pages/reviews/ReviewForm';
+// import ReviewList from 'pages/reviews/ReviewList';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.css';
 
 function App() {
-  const windowWidth = useWindowWidth();
+  // const windowWidth = useWindowWidth();
   return (
     <>
       <div className="app">
@@ -26,7 +32,18 @@ function App() {
           <Route path="/accounts/login/" element={<Login />} />
           <Route path="/accounts/profile/" element={<Profile />} />
           <Route path="/blog/" element={<PageBlog />} />
-          <Route path="/reviews/" element={<ReviewList />} />
+          <Route path="/news/" element={<PageNewsIndex />} />
+          <Route path="/news/new/" element={<PageNewsArticleForm />} />
+          <Route path="/news/:articleId/" element={<PageNewsArticleDetail />} />
+          <Route
+          path="/news/:articleId/edit/"
+          element={<PageNewsArticleForm />}
+        />
+          <Route path="/mascot/" element={<PagemascotIndex />} />
+          <Route path="/mascot/:characterId/" element={<PageMascotCharacterDetail />} />
+          <Route path="/mascot/new/" element={<PageMascotCharacterForm />} />
+          <Route path="/mascot/:characterId/edit/" element={<PageMascotCharacterForm />} />
+          {/* <Route path="/reviews/" element={<ReviewList />} />
           <Route path="/reviews/new/" element={<ReviewForm />} />
           <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
           <Route path="/examples/components/" element={<Components />} />
@@ -36,14 +53,14 @@ function App() {
           <Route
             path="/examples/context-api-2/"
             element={<ContextApiSample2 />}
-          />
+          /> */}
         </Routes>
-        <hr />
-        윈도우 가로크기 : {windowWidth}px
+        {/* <hr />
+        윈도우 가로크기 : {windowWidth}px */}
       </div>
-      <Routes>
+      {/* <Routes>
         <Route path="/examples/clock/" element={<Clock />} />
-      </Routes>
+      </Routes> */}
     </>
   );
 }

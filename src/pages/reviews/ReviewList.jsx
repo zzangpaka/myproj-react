@@ -34,10 +34,6 @@ function PageReviewList() {
       });
   };
 
-  const willeditReview = (editingReview) => {
-    console.log('Editing', editingReview);
-  };
-
   const deleteReview = (deletingReview) => {
     const { id: deletingReviewId } = deletingReview;
     const url = `/shop/api/reviews/${deletingReviewId}/`;
@@ -90,11 +86,6 @@ function PageReviewList() {
           <Review
             review={review}
             key={review.id}
-<<<<<<< HEAD
-            handleEdit={() => navigate(`/reviews/${review.id}/edit`)}
-=======
-            handleEdit={() => willeditReview(review)}
->>>>>>> f63520cf310d5d26e29af928e6d3cb92cbc00934
             handleDelete={() => deleteReview(review)}
           />
         ))}

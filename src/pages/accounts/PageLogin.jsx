@@ -6,11 +6,11 @@ import Button from 'components/Button';
 import DebugStates from 'components/DebugStates';
 import useFieldValues from 'hooks/useFieldValues';
 
-const Initial_State = { username: '', password: '' };
+const INITIAL_STATE = { username: '', password: '' };
 
 function PageLogin() {
-  const { handleFieldChange, fieldValues } = useFieldValues(Initial_State);
-  const [{ data: PageLogin, loading, error }, refetch] = useApiAxios(
+  const { handleFieldChange, fieldValues } = useFieldValues(INITIAL_STATE);
+  const [{ loading, error }, refetch] = useApiAxios(
     {
       url: '/accounts/api/token/',
       method: 'POST',
@@ -18,34 +18,42 @@ function PageLogin() {
     { manual: true },
   );
 
-  const handleSubmit = () => {
-    refetch({ data: fieldValues }).then((request) => {
-      console.log(request.data);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    refetch({ data: fieldValues }).then((response) => {
+      console.log(response.data);
     });
   };
 
   return (
     <div className="my-3">
       <h2 className="my-3">Login</h2>
-      id
-      <input
-        name="username"
-        onChange={handleFieldChange}
-        type="text"
-        className="p-1 bg-gray-100 border border-gray-400 my-3 w-full outline-none focus:border focus:border-gray-400 focus:border-dashed"
-      />
-      password
-      <input
-        name="password"
-        type="password"
-        onChange={handleFieldChange}
-        className="p-1 bg-gray-100 border border-gray-400 my-3 w-full outline-none focus:border focus:border-gray-400 focus:border-dashed"
-      />
-      {/* <Link to="/accounts/api/token/" className="hover:text-red-400 my-3">
-        로그인
-      </Link> */}
-      <Button onClick={handleSubmit}>로그인</Button>
-      <DebugStates PageLogin={PageLogin} loading={loading} error={error} />
+      {error?.response?.status === 401 && (
+        <div className="text-red-400">로그인에 실패했습니다.</div>
+      )}
+      <form>
+        <input
+          type="text"
+          name="username"
+          value={fieldValues.username}
+          onChange={handleFieldChange}
+          placeholder="ID를 입력해주세요."
+          className="p-1 bg-gray-100 border border-gray-400 my-3 w-full outline-none focus:border focus:border-gray-400 focus:border-dashed"
+        />
+        password
+        <input
+          type="password"
+          name="password"
+          value={fieldValues.password}
+          onChange={handleFieldChange}
+          placeholder="비밀번호를 입력해주세요."
+          className="p-1 bg-gray-100 border border-gray-400 my-3 w-full outline-none focus:border focus:border-gray-400 focus:border-dashed"
+        />
+        <Button onClick={handleSubmit}>로그인</Button>
+      </form>
+
+      <DebugStates fieldValues={fieldValues} loading={loading} error={error} />
     </div>
   );
 }

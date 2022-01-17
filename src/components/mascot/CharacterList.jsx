@@ -1,5 +1,6 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
+import Hover from 'components/Hover';
 import { useEffect } from 'react';
 import CharacterSummary from './CharacterSummary';
 
@@ -20,6 +21,7 @@ function CharacterList() {
         characterList.map((character) => (
           <CharacterSummary character={character} key={character.id} />
         ))}
+      <Hover />
       <DebugStates
         characterList={characterList}
         loading={loading}

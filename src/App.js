@@ -1,6 +1,6 @@
 import TopNav from 'components/TopNav';
-import Login from 'pages/accounts/Login';
-import Profile from 'pages/accounts/Profile';
+import PageLogin from 'pages/accounts/PageLogin';
+import PageProfile from 'pages/accounts/PageProfile';
 import PageBlog from 'pages/blog/PageBlog';
 import PageMascotCharacterDetail from 'pages/mascot/PageMascotCharacterDetail';
 import PageMascotCharacterForm from 'pages/mascot/PageMascotCharacterForm';
@@ -29,8 +29,8 @@ function App() {
         <TopNav />
         <Routes>
           <Route path="/" element={<Navigate to="/blog/" />} />
-          <Route path="/accounts/login/" element={<Login />} />
-          <Route path="/accounts/profile/" element={<Profile />} />
+          <Route path="/accounts/login/" element={<PageLogin />} />
+          <Route path="/accounts/profile/" element={<PageProfile />} />
           <Route path="/blog/" element={<PageBlog />} />
           <Route path="/news/" element={<PageNewsIndex />} />
           <Route path="/news/new/" element={<PageNewsArticleForm />} />
@@ -39,7 +39,7 @@ function App() {
           path="/news/:articleId/edit/"
           element={<PageNewsArticleForm />}
         />
-          <Route path="/mascot/" element={<PagemascotIndex />} />
+          {/* <Route path="/mascot/" element={<PagemascotIndex />} /> */}
           <Route path="/mascot/:characterId/" element={<PageMascotCharacterDetail />} />
           <Route path="/mascot/new/" element={<PageMascotCharacterForm />} />
           <Route path="/mascot/:characterId/edit/" element={<PageMascotCharacterForm />} />
@@ -58,9 +58,10 @@ function App() {
         {/* <hr />
         윈도우 가로크기 : {windowWidth}px */}
       </div>
-      {/* <Routes>
-        <Route path="/examples/clock/" element={<Clock />} />
-      </Routes> */}
+      <Routes>
+        <Route path="/mascot/" element={<PagemascotIndex />} />
+        {/* <Route path="/examples/clock/" element={<Clock />} /> */}
+      </Routes>
     </>
   );
 }

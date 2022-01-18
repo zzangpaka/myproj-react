@@ -10,7 +10,9 @@ function ArticleSummary({ article }) {
           className="w-5 h-5 mr-1 rounded inline"
         />
       )}
-      <Link to={`/news/${article.id}/`}>{article.title}</Link>
+      <Link to={`/news/${article.id}/`}>
+        {article.title} [ {article.author.username} ]
+      </Link>
     </div>
   );
 }

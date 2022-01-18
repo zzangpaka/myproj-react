@@ -9,7 +9,7 @@ const INITIAL_STATE = { username: '', password: '' };
 
 function LoginForm() {
   const Navigate = useNavigate();
-  const [auth, setAuth] = useAuth();
+  const [auth, _, login] = useAuth();
   const { handleFieldChange, fieldValues } = useFieldValues(INITIAL_STATE);
   const [{ loading, error }, refetch] = useApiAxios(
     {
@@ -25,8 +25,7 @@ function LoginForm() {
     refetch({ data: fieldValues }).then((response) => {
       const { access, refresh, username, first_name, last_name } =
         response.data;
-      setAuth({
-        isLoggedIn: true,
+      login({
         access,
         refresh,
         username,
@@ -50,7 +49,7 @@ function LoginForm() {
       {error?.response?.status === 401 && (
         <div className="text-red-400">로그인에 실패했습니다.</div>
       )}
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="username"
@@ -68,7 +67,7 @@ function LoginForm() {
           placeholder="비밀번호를 입력해주세요."
           className="p-1 bg-gray-100 border border-gray-400 my-3 w-full outline-none focus:border focus:border-gray-400 focus:border-dashed"
         />
-        <Button onClick={handleSubmit}>로그인</Button>
+        <Button>로그인</Button>
       </form>
 
       <DebugStates

@@ -1,17 +1,16 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
+import useAuth from 'hooks/useAuth';
 import { useEffect } from 'react';
 import ArticleSummary from './ArticleSummary';
-import useAuth from 'hooks/useAuth';
 
 function ArticleList() {
   const [auth] = useAuth();
-
   const [{ data: articleList, loading, error }, refetch] = useApiAxios(
-    // 방법 2)
     {
       url: '/news/api/articles/',
       method: 'GET',
+      // 방법 2)
       headers: {
         Authorization: `Bearer ${auth.access}`,
       },
@@ -20,12 +19,6 @@ function ArticleList() {
   );
 
   useEffect(() => {
-    // 방법 1)
-    // refetch({
-    //   headers: {
-    //     Authorization: `Bearer ${auth.access}`,
-    //   },
-    // });
     refetch();
   }, [auth]);
 
@@ -35,7 +28,9 @@ function ArticleList() {
       {loading && '로딩 중 ...'}
       {error && '로딩 중 에러가 발생했습니다.'}
       {articleList &&
-        articleList.map((article) => <ArticleSummary article={article} />)}
+        articleList.map((article) => (
+          <ArticleSummary article={article} key={article.id} />
+        ))}
       <DebugStates articleList={articleList} loading={loading} error={error} />
     </div>
   );

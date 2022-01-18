@@ -1,6 +1,7 @@
 import TopNav from 'components/TopNav';
 import PageLogin from 'pages/accounts/PageLogin';
 import PageProfile from 'pages/accounts/PageProfile';
+import PageSignup from 'pages/accounts/PageSignup';
 import PageBlog from 'pages/blog/PageBlog';
 import PageMascotCharacterDetail from 'pages/mascot/PageMascotCharacterDetail';
 import PageMascotCharacterForm from 'pages/mascot/PageMascotCharacterForm';
@@ -22,7 +23,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 function App() {
-  // const windowWidth = useWindowWidth();
   return (
     <>
       <div className="app">
@@ -30,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/blog/" />} />
           <Route path="/accounts/login/" element={<PageLogin />} />
+          <Route path="/accounts/signup/" element={<PageSignup />} />
           <Route path="/accounts/profile/" element={<PageProfile />} />
           <Route path="/blog/" element={<PageBlog />} />
           <Route path="/news/" element={<PageNewsIndex />} />
@@ -39,29 +40,12 @@ function App() {
           path="/news/:articleId/edit/"
           element={<PageNewsArticleForm />}
         />
-          {/* <Route path="/mascot/" element={<PagemascotIndex />} /> */}
+          <Route path="/mascot/" element={<PagemascotIndex />} />
           <Route path="/mascot/:characterId/" element={<PageMascotCharacterDetail />} />
           <Route path="/mascot/new/" element={<PageMascotCharacterForm />} />
           <Route path="/mascot/:characterId/edit/" element={<PageMascotCharacterForm />} />
-          {/* <Route path="/reviews/" element={<ReviewList />} />
-          <Route path="/reviews/new/" element={<ReviewForm />} />
-          <Route path="/reviews/:reviewId/edit/" element={<ReviewForm />} />
-          <Route path="/examples/components/" element={<Components />} />
-          <Route path="/examples/css-module/" element={<CssModule />} />
-          <Route path="/examples/css-in-js/" element={<CssInJs />} />
-          <Route path="/examples/context-api/" element={<ContextApiSample />} />
-          <Route
-            path="/examples/context-api-2/"
-            element={<ContextApiSample2 />}
-          /> */}
         </Routes>
-        {/* <hr />
-        윈도우 가로크기 : {windowWidth}px */}
       </div>
-      <Routes>
-        <Route path="/mascot/" element={<PagemascotIndex />} />
-        {/* <Route path="/examples/clock/" element={<Clock />} /> */}
-      </Routes>
     </>
   );
 }

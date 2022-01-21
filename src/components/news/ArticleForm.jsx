@@ -6,7 +6,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import useFieldValues from 'hooks/useFieldValues';
 import { useApiAxios } from 'api/base';
 import { useEffect } from 'react';
-import useAuth from 'hooks/useAuth';
+import { useAuth } from 'contexts/AuthContext';
 
 const INIT_FIELD_VALUES = { title: '', content: '' };
 

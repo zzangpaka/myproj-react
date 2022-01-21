@@ -1,6 +1,6 @@
 import { useApiAxios } from 'api/base';
 import DebugStates from 'components/DebugStates';
-import useAuth from 'hooks/useAuth';
+import { useAuth } from 'contexts/AuthContext';
 import { useEffect } from 'react';
 import ArticleSummary from './ArticleSummary';
 

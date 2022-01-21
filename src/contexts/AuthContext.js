@@ -1,11 +1,11 @@
 import useLocalStorage from 'hooks/useLocalStorage';
-import React, { createContext, useCallback } from 'react';
+import React, { createContext, useCallback, useContext } from 'react';
 
 export const AuthContext = createContext()
 
 const INITIAL_AUTH = { isLoggedIn: false };
 
-const UserInfo = (children) => {
+function AuthProvider({children}) {
     const [auth, setAuth] = useLocalStorage('auth', INITIAL_AUTH);
 
     const login = useCallback(
@@ -29,9 +29,12 @@ const UserInfo = (children) => {
     }, [setAuth]);
 
     return (
-        <AuthContext.Provider value={{auth, setAuth, login, logout}}>{children}</AuthContext.Provider>
-    )
-
+        <AuthContext.Provider value={[auth, setAuth, login, logout]}>{children}</AuthContext.Provider>
+    );
 };
 
-export default UserInfo;
+function useAuth() {
+    return useContext(AuthContext);
+};
+
+export {AuthProvider, useAuth};
